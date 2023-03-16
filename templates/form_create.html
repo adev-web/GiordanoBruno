@@ -1,0 +1,25 @@
+{% extends 'base/base.html' %}
+{% block content %}
+
+<main class="container w-75 pt-5">
+    <div>
+        <p>{{error}}</p>
+    </div>
+    <form method="POST" class="card card-body">
+        {% csrf_token %}
+        <div class="row row-cols-2">
+            {% for item in form %}
+            <div>
+                <h4 >{{item.label}}</h4>
+                {{item}}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center">
+            <button class="btn btn-dark mt-5 mb-2" type="submit">Guardar</button>
+        </div>
+    </form>
+    
+</main>
+
+{% endblock %}

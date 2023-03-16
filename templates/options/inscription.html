@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+{% block content %}
+
+<main class="container">
+    <div class="card card-body p-5 mt-5">
+        {% include 'layout/header.html' %}
+        <div class="row text-center w-25 mx-auto m-2">
+            <a class="btn btn-dark text-capitalize mt-3" href="{% url 'create_pay' id %}">crear pago para matricula</a>
+            <a class="btn btn-dark text-capitalize mt-3" href="{% url 'list_pays' id %}">listar pago para matricula</a>
+            <a class="btn btn-dark text-capitalize mt-3" href="#">actualizar datos de matricula</a>
+            <a class="btn btn-danger text-capitalize mt-3" href="#">eliminar matricula</a>
+        </div>
+    </div>
+</main>
+{% endblock %}

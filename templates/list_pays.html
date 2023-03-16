@@ -1,0 +1,46 @@
+{% extends 'base/base.html' %}
+{% block content %}
+{% load static %}
+
+<main class="container">
+    <div class="card card-body p-5 mt-5">
+        <table class="table table-dark">
+            <thead>
+                <tr class="text-uppercase">
+                    {% for label in labels %}
+                    <th>
+                        {{label}}
+                    </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for items in items_data %}
+                <tr class="text-uppercase" data-href="{% url 'opciones_pago' items.0 %}">
+                    {% for item in items %}
+                    <td>{{item}}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center">
+        <h3 class="pt-5">
+            {{error}}
+        </h3>
+    </div>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        rows = document.querySelectorAll('tr[data-href]');
+        rows.forEach(row => {
+            row.addEventListener('click', () => {
+                window.location.href = row.dataset.href;
+            });
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base/base.html' %}
+{% block content %}
+
+<main class="container">
+    <div class="card card-body p-5 mt-5">
+        {% include 'layout/header.html' %}
+        <div class="row text-center w-25 mx-auto m-2">
+            <a class="btn btn-dark text-capitalize mt-3" href="#">actualizar datos del pago</a>
+            <a class="btn btn-danger text-capitalize mt-3" href="#">eliminar pago</a>
+        </div>
+    </div>
+</main>
+{% endblock %}

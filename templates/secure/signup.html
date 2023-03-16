@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %}
+{% block content %}
+{% load static %}
+<main class="container w-75 ">
+    <div class="card card-body p-5 mt-5">
+        {% include 'layout/header.html' %}
+        <form class="row"method="POST">
+            {% csrf_token %}
+            <div class='row m-4 w-50 mx-auto' >
+                <label for="id_username">Usuario:</label>
+                <input type="text" name="username" maxlength="150" autocapitalize="none" autocomplete="username" autofocus
+                    required id="id_username">
+                <label for="id_password1">Contraseña:</label>
+                <input type="password" name="password1" autocomplete="new-password" required id="id_password1">
+    
+                <label for="id_password2">Confirme la contraseña:</label>
+                <input type="password" name="password2" autocomplete="new-password" required id="id_password2">
+    
+            </div>
+            <div class="row m-4 mx-auto">
+                <button class="btn btn-dark w-50 mx-auto" type="submit">SignUp</button>
+            </div>
+        </form>
+    </div>
+    {{ error }}
+</main>
+{% endblock %}

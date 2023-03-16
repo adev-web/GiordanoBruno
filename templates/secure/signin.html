@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+{% block content %}
+
+<main class="container w-75">
+    <div class="card card-body p-5 mt-5">
+        {% include 'layout/header.html' %}
+        <form class="row" method="POST">
+            {% csrf_token %}
+            <div class='row m-4 w-50 mx-auto' id="form-2">
+                {{ form }}
+            </div>
+            <div class="row m-4 mx-auto">
+                <button class="btn btn-dark w-50 mx-auto" type="submit">Iniciar Sesión</button>
+            </div>
+
+        </form>
+
+        {{ error }}
+    </div>
+</main>
+</script>
+{% endblock %}
