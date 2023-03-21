@@ -1,18 +1,27 @@
 <nav class="d-flex justify-content-between">
-    <div class="nav nav-pills justify-content-sm-center align-items-center">
-        <h5 class="text-capitalize">
-            {{user.username}}
-        </h5>
-    </div>
-    <ul class="nav nav-pills justify-content-sm-end align-items-center">
-        {% if user.is_authenticated %}
-        {% if tittle != 'Main' %}
-        <li class="nav-item"><a class="nav-link" href="{% url 'main' %}">Inicio</a></li>
-        {% endif %}
-        <li class="nav-item"><a class="nav-link" href="{% url 'signout' %}">Cerrar Sesión</a></li>
-        {% else %}
-        <li class="nav-item"><a class="nav-link" href="{% url 'signin' %}">Iniciar Sesión</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">Registrarse</a></li>
-        {% endif %}
+    {% if user.is_authenticated %}
+    <ul class="nav nav-pills justify-content-sm-center align-items-center">
+        <li class="nav-item">
+            <a class="nav-link" href="#">Bienvenid@ {{user.username}}</a>
+        </li>
     </ul>
+    <ul class="nav nav-pills justify-content-sm-center align-items-center">
+        {% if tittle != 'Main' %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'main' %}">Inicio</a>
+        </li>
+        {% endif %}
+
+        {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'signin' %}">Iniciar Sesión</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'signup' %}">Registrarse</a>
+        </li>
+
+    </ul>
+
+
+    {% endif %}
 </nav>

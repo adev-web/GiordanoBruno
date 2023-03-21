@@ -21,7 +21,7 @@ class EstudianteForm(forms.ModelForm):
 class InscriptionForm(forms.ModelForm):
     class Meta:
         model = Inscription
-        fields = ('curso', 'curso_nivel')
+        fields = ('curso', 'curso_nivel', 'trimestre')
 
 
 

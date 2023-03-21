@@ -1,11 +1,7 @@
 {% extends 'base/base.html' %}
 {% block content %}
-
-<main class="container w-75 pt-5">
-    <div>
-        <p>{{error}}</p>
-    </div>
-    <form method="POST" class="card card-body">
+<main class="container mt-3">
+    <form method="POST" class="card card-body pt-5">
         {% csrf_token %}
         <div class="row row-cols-2">
             {% for item in form %}
@@ -15,11 +11,14 @@
             </div>
             {% endfor %}
         </div>
-        <div class="text-center">
-            <button class="btn btn-dark mt-5 mb-2" type="submit">Guardar</button>
+        <div class="text-center text-capitalize">
+            <a id="btn_back" class="btn btn-secondary m-4 mt-5 mb-2">Cancelar</a>
+            <button class="btn btn-dark m-4 mt-5 mb-2" type="submit">Guardar</button>
         </div>
     </form>
-    
+    <div>
+        <p>{{error}}</p>
+    </div>
 </main>
 
 {% endblock %}

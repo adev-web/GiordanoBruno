@@ -48,3 +48,13 @@ DISCAPACIDAD_CHOICES = [
     ('Neuromotor', 'Trastorno neuromotor (parálisis cerebral, entre otros)'),
     ('Visual', 'Discapacidad visual'),
 ]
+
+CARGO_INSCRIPTIONS_CHOICES = [
+    ('Matricula', 'Matricula'), ('Mensualidad', 'Mensualidad')]
+
+TRIMESTRE_CHOICES = [
+    ('OPCIONES', 'OPCIONES'),
+    ('PRIMER TRIMESTRE', 'I'),
+    ('SEGUNDO TRIMESTRE', 'II'),
+    ('TERCER TRIMESTRE', 'III'),
+]

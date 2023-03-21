@@ -1,19 +1,15 @@
 {% extends 'base/base.html' %}
 {% block content %}
 {% load static %}
-<main class="container">
-    <div class="card card-body p-5 mt-5">
+<main class="container mt-3">
+    <div class="card card-body pt-5">
         {% include 'layout/header.html' %}
-
-
         <div class="row text-center w-25 mx-auto m-2">
             <a class="btn btn-dark text-capitalize mt-3" href="{% url 'create_students' %}">Crear Estudiantes</a>
-            <a class="btn btn-dark text-capitalize mt-3" href="{% url 'list_students' %}">Listar Estudiantes</a>
-            <a class="btn btn-success text-capitalize mt-3" href="#">Informes</a>
+            <a class="btn btn-secondary text-capitalize mt-3" href="{% url 'list_students' %}">Listar Estudiantes</a>
+            <!-- <a class="btn btn-secondary text-capitalize mt-3" href="#">Configuracion De Usuario</a> -->
         </div>
     </div>
-
-
 </main>
 
 {% endblock %}

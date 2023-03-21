@@ -1,0 +1,98 @@
+{% extends 'base/base.html' %}
+{% block content %}
+{% load static %}
+
+<main class="container mt-3">
+    <div class="d-flex justify-content-between">
+        <div>
+            <h6>
+                <strong>{{estudiante}}</strong>
+            </h6>
+        </div>
+        <div>
+            <h6>
+                <strong>{{estudiante_dni}}</strong>
+            </h6>
+        </div>
+    </div>
+
+    <!-- Search form -->
+
+
+
+    <div class="card card-body pt-1">
+        <form method="POST" class="p-2 col-md-6">
+            {% csrf_token %}
+            <input class="w-50" type="text" name="search_filter" placeholder="Search" aria-label="Search">
+            <button class="btn btn-dark">Buscar <i class="bi bi-search"></i></button>
+        </form>
+        <table class="table table-dark">
+
+            <thead>
+                <tr class="text-uppercase">
+                    {% for label in labels %}
+                    <th>
+                        {{label}}
+                    </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for items in items_data %}
+                <tr class="text-uppercase" data-href="{% url redirect_url items.0 %}">
+                    {% for item in items %}
+                    <td>{{item}}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+        <div class="text-center">
+            <h3 class="p-3">
+                {{error}}
+            </h3>
+        </div>
+        <nav class="d-flex justify-content-center">
+            <ul class="pagination col-4 justify-content-between text-capitalize">
+                {% if items_data.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ items_data.previous_page_number }}">anterior</a>
+                </li>
+                {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="#">anterior</a>
+                </li>
+                {% endif %}
+
+                <span class="current-page page-link">{{ items_data.number }}</span>
+
+                {% if items_data.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ items_data.next_page_number }}">siguiente</a>
+                </li>
+                {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="#">siguiente</a>
+                </li>
+
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        rows = document.querySelectorAll('tr[data-href]');
+        rows.forEach(row => {
+            row.addEventListener('click', () => {
+                window.location.href = row.dataset.href;
+            });
+        });
+    });
+</script>
+{% endblock %}

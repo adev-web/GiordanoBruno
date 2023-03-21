@@ -1,7 +1,6 @@
 from django.db import models
-from phone_field import PhoneField
 import datetime
-from .choices import GRUPOS_CHOICES, DISCAPACIDAD_CHOICES, PROVINCIA_CHOICES, SEXO_CHOICES, BLOQUE_CHOICES
+from .choices import GRUPOS_CHOICES, DISCAPACIDAD_CHOICES, SEXO_CHOICES, BLOQUE_CHOICES, CARGO_INSCRIPTIONS_CHOICES, TRIMESTRE_CHOICES
 
 
 class Estudiante(models.Model):
@@ -72,6 +71,13 @@ class Inscription(models.Model):
         primary_key=True,
         max_length=20,
         blank=True,)
+    
+    date_year = models.CharField(
+        verbose_name='año',
+        blank=True,
+        max_length=4,
+        default= datetime.datetime.now().year,
+    )
 
     curso = models.CharField(
         choices=BLOQUE_CHOICES,
@@ -85,11 +91,12 @@ class Inscription(models.Model):
         verbose_name='nivel del curso',
         max_length=30,)
 
-
-
-
-CARGO_INSCRIPTIONS_CHOICES = [
-    ('Matricula', 'Matricula'), ('Mensualidad', 'Mensualidad')]
+    trimestre = models.CharField(
+        choices=TRIMESTRE_CHOICES,
+        default='Opciones',
+        verbose_name='trimestre',
+        max_length=30,
+    )
 
 
 class Pago(models.Model):

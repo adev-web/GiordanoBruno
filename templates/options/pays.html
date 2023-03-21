@@ -5,8 +5,10 @@
     <div class="card card-body p-5 mt-5">
         {% include 'layout/header.html' %}
         <div class="row text-center w-25 mx-auto m-2">
-            <a class="btn btn-dark text-capitalize mt-3" href="#">actualizar datos del pago</a>
-            <a class="btn btn-danger text-capitalize mt-3" href="#">eliminar pago</a>
+            <a class="btn btn-dark text-capitalize mt-3" href="{% url 'update_pay' id %}">actualizar datos del pago</a>
+            <a class="btn btn-success text-capitalize mt-3">imprimir factura del pago</a>
+            <a class="btn btn-danger text-capitalize mt-3" href="{% url 'delete_pay' id %}">eliminar pago</a>
+            
         </div>
     </div>
 </main>

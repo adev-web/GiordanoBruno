@@ -1,20 +1,27 @@
 <footer class="d-flex justify-content-between pt-5">
     <div class="text-center">
-        <h2>
-            <i class="bi bi-back"></i>
-        </h2>
-        <a href="/..">
-
-            <h6>Back</h6>
+        {% if tittle == 'Main' %}
+        <a href="">
+            <h2>
+                <i class="bi bi-box-arrow-left"></i>
+            </h2>
+            <h6>Regresar</h6>
         </a>
+        {% else%}
+        <a id="btn_back" href="">
+            <h2>
+                <i class="bi bi-box-arrow-left"></i>
+            </h2>
+            <h6>Regresar</h6>
+        </a>
+        {% endif %}
     </div>
     <div class="text-center">
-        <h2>
-            <i class="bi bi-box-arrow-left"></i>
-        </h2>
         <a href="{% url 'signout' %}">
-
-            <h6>Logout</h6>
+            <h2>
+                <i class="bi bi-back"></i>
+            </h2>
+            <h6>Cerrar Sesión</h6>
         </a>
     </div>
 </footer>

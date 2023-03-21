@@ -2,7 +2,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 
 
 def signup(request):
@@ -48,8 +49,7 @@ def signin(request):
         else:
             login(request, user)
             return redirect('main')
-
-
+        
 @login_required
 def signout(request):
     logout(request)

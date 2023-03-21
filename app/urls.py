@@ -15,4 +15,14 @@ urlpatterns = [
     path('opciones/estudiante/id/<str:student_id>/', views.option_student, name='opciones_estudiante'),
     path('opciones/inscripcion/id/<str:enrollment_id>/', views.option_inscription, name='opciones_inscripcion'),
     path('opciones/pago/id/<str:num_fact>/', views.option_pays, name='opciones_pago'),
+
+    path('update/estudiante/id/<str:student_id>/', views.update_student, name='update_student'),
+    path('update/inscripcion/id/<str:enrollment_id>/', views.update_inscription, name='update_inscription'),
+    path('update/pago/id/<str:num_fact_id>/', views.update_pay, name='update_pay'),
+
+    path('delete/estudiante/id/<str:student_id>/', views.delete_student, name='delete_student'),
+    path('delete/inscripcion/id/<str:enrollment_id>/', views.delete_inscription, name='delete_inscription'),
+    path('delete/pago/id/<str:num_fact_id>/', views.delete_pay, name='delete_pay'),
+
+    #path('print/pago/id/<str:num_fact_id>/', views.imprimir_factura, name='print_fact'), 
 ]

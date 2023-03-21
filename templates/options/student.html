@@ -7,8 +7,8 @@
         <div class="row text-center w-25 mx-auto m-2">
             <a class="btn btn-dark text-capitalize mt-3" href="{% url 'create_inscription' id %}">crear matricula del estudiante</a>
             <a class="btn btn-dark text-capitalize mt-3" href="{% url 'list_inscriptions' id %}">listar matricula del estudiante</a>
-            <a class="btn btn-dark text-capitalize mt-3" href="#">actualizar datos del estudiante</a>
-            <a class="btn btn-danger text-capitalize mt-3" href="#">eliminar estudiante</a>
+            <a class="btn btn-dark text-capitalize mt-3" href="{% url 'update_student' id %}">actualizar datos del estudiante</a>
+            <a class="btn btn-danger text-capitalize mt-3" href="{% url 'delete_student' id %}">eliminar estudiante</a>
         </div>
     </div>
 </main>
