@@ -24,5 +24,7 @@ urlpatterns = [
     path('delete/inscripcion/id/<str:enrollment_id>/', views.delete_inscription, name='delete_inscription'),
     path('delete/pago/id/<str:num_fact_id>/', views.delete_pay, name='delete_pay'),
 
-    #path('print/pago/id/<str:num_fact_id>/', views.imprimir_factura, name='print_fact'), 
+    path('print/pago/id/<str:num_fact_id>/', views.pay_x_inscription, name='print_fact'),
+    ## agregar abono
+    path('agregar/pago/abono/id/<str:num_pass_id>/', views.add_pass, name='add_pass'),
 ]

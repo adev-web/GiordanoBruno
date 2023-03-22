@@ -3,8 +3,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib import messages
-
 
 def signup(request):
     if request.method == 'GET':
@@ -50,7 +48,7 @@ def signin(request):
             login(request, user)
             return redirect('main')
         
-@login_required
+@login_required(login_url='signin')
 def signout(request):
     logout(request)
     return redirect('main')

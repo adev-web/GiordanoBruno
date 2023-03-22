@@ -50,7 +50,7 @@ DISCAPACIDAD_CHOICES = [
 ]
 
 CARGO_INSCRIPTIONS_CHOICES = [
-    ('Matricula', 'Matricula'), ('Mensualidad', 'Mensualidad')]
+    ('Matricula', 'Matricula'), ('Mensualidad', 'Mensualidad'), ('Diploma o Certificado', 'Diploma o Certificado'),]
 
 TRIMESTRE_CHOICES = [
     ('OPCIONES', 'OPCIONES'),

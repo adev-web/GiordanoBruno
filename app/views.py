@@ -1,4 +1,5 @@
 # IMPORTS!
+import datetime
 import random
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
@@ -10,6 +11,9 @@ from .forms import EstudianteForm, PagoForm, InscriptionForm
 
 # TOOLS
 from django.core.paginator import Paginator
+from openpyxl import Workbook
+from num2words import num2words
+import re
 # Create your views here.
 
 
@@ -73,8 +77,7 @@ def list_students(request):
     if request.method == 'GET':
         consulta = f"SELECT dni, apellido_1, nombre_1, sexo, phone from app_estudiante;"
     else:
-        query = request.POST.get('search_filter')
-        consulta = f"SELECT dni, apellido_1, nombre_1, sexo, phone from app_estudiante where dni like '%{query}%';"
+        consulta = f"SELECT dni, apellido_1, nombre_1, sexo, phone from app_estudiante where dni like '%{request.POST.get('search_filter')}%';"
     # END_FILTER_SQL
 
     # SQL_CONNECTION
@@ -95,6 +98,7 @@ def list_students(request):
             'labels': ('Cedula', 'Apellido', 'Nombre', 'Sexo', 'Telefono'),
             'items_data': page_obj,
             'redirect_url': 'opciones_estudiante',
+            'query': request.POST.get('search_filter'),
         }
         return render(request, 'list_all.html', dictionary)
     else:
@@ -112,10 +116,9 @@ def list_inscriptions(request, student_id):
 
     # FILTER_SQL
     if request.method == 'GET':
-        consulta = f"select i.num_comprobante, i.date_year, i.curso, i.curso_nivel, i.trimestre from app_inscription as i inner join app_estudiante as e on i.fk_estudiante_id = e.dni and e.dni = '{student_id}';"
+        consulta = f"select i.num_comprobante, i.date_year, i.curso, i.curso_nivel, i.trimestre from app_inscription as i inner join app_estudiante as e on i.fk_estudiante_id = e.dni and e.dni = '{student_id}' order by i.date_year, i.curso, i.curso_nivel, i.trimestre desc;"
     else:
-        query = request.POST.get('search_filter')
-        consulta = f"select i.num_comprobante, i.date_year, i.curso, i.curso_nivel, i.trimestre from app_inscription as i inner join app_estudiante as e on i.fk_estudiante_id = e.dni and e.dni = '{student_id}' where i.num_comprobante like '%{query}%';"
+        consulta = f"select i.num_comprobante, i.date_year, i.curso, i.curso_nivel, i.trimestre from app_inscription as i inner join app_estudiante as e on i.fk_estudiante_id = e.dni and e.dni = '{student_id}' where i.num_comprobante like '%{request.POST.get('search_filter')}%';"
     # END_FILTER_SQL
 
     # SQL_CONNECTION
@@ -138,6 +141,7 @@ def list_inscriptions(request, student_id):
             'labels': ('comprobante', 'año', 'curso', 'nivel del curso', 'trimestre'),
             'items_data': page_obj,
             'redirect_url': 'opciones_inscripcion',
+            'query': request.POST.get('search_filter'),
         }
         return render(request, 'list_all.html', dictionary)
     else:
@@ -149,10 +153,10 @@ def list_pays(request, enrollment_id):
     obj = get_object_or_404(Inscription, pk=enrollment_id)
     # FILTER_SQL
     if request.method == 'GET':
-        consulta = f"select factura_pago, cargo_tipo, monto_valor, monto_pagar, (monto_valor-monto_pagar) as saldo, fecha_pago from app_pago inner join app_inscription on fk_inscription_id = num_comprobante and num_comprobante = '{enrollment_id}';"
+        consulta = f"select factura_pago, cargo_tipo, monto_valor, monto_pagar, round((monto_valor-monto_pagar), 2) as saldo, fecha_pago from app_pago inner join app_inscription on fk_inscription_id = num_comprobante and num_comprobante = '{enrollment_id}' order by factura_pago desc;"
+
     else:
-        query = request.POST.get('search_filter')
-        consulta = f"select factura_pago, cargo_tipo, monto_valor, monto_pagar, (monto_valor-monto_pagar) as saldo, fecha_pago from app_pago inner join app_inscription on fk_inscription_id = num_comprobante and num_comprobante = '{enrollment_id}' where factura_pago like '%{query}%';"
+        consulta = f"select factura_pago, cargo_tipo, monto_valor, monto_pagar, round(monto_pagar-monto_valor, 2) as saldo, fecha_pago from app_pago inner join app_inscription on fk_inscription_id = num_comprobante and num_comprobante = '{enrollment_id}' where factura_pago like '%{request.POST.get('search_filter')}%' order by factura_pago desc;"
     # END FILTER_SQL
 
     # SQL_CONNECTION
@@ -175,6 +179,7 @@ def list_pays(request, enrollment_id):
             'labels': ('Pago', 'tipo de cargo', 'Monto', 'Pagó', 'Saldo', 'Fecha de Pago', ),
             'items_data': page_obj,
             'redirect_url': 'opciones_pago',
+            'query': request.POST.get('search_filter'),
         }
         return render(request, 'list_all.html', dictionary)
     else:
@@ -198,6 +203,7 @@ def option_pays(request, num_fact):
     return render(request, 'options/pays.html', {'id': num_fact})
 
 
+@login_required(login_url='signin')
 def update_student(request, student_id):
     obj = get_object_or_404(Estudiante, pk=student_id)
     obj_form = EstudianteForm(instance=obj)
@@ -218,6 +224,7 @@ def update_student(request, student_id):
             return render(request, 'form_create.html', dictionary)
 
 
+@login_required(login_url='signin')
 def update_inscription(request, enrollment_id):
     obj = get_object_or_404(Inscription, pk=enrollment_id)
     obj_form = InscriptionForm(instance=obj)
@@ -238,6 +245,7 @@ def update_inscription(request, enrollment_id):
             return render(request, 'form_create.html', dictionary)
 
 
+@login_required(login_url='signin')
 def update_pay(request, num_fact_id):
     obj = get_object_or_404(Pago, pk=num_fact_id)
     obj_form = PagoForm(instance=obj)
@@ -250,7 +258,7 @@ def update_pay(request, num_fact_id):
         obj_form2 = PagoForm(request.POST, instance=obj)
         if obj_form2.is_valid():
             obj_form2.save()
-            return redirect('list_pays', num_fact_id)
+            return redirect('list_pays', obj.fk_inscription.num_comprobante)
         else:
             dictionary = {
                 'tittle': 'Actualizar Pago',
@@ -258,19 +266,107 @@ def update_pay(request, num_fact_id):
             return render(request, 'form_create.html', dictionary)
 
 
+@login_required(login_url='signin')
 def delete_student(request, student_id):
     obj = get_object_or_404(Estudiante, pk=student_id)
     obj.delete()
     return redirect('list_students')
 
 
+@login_required(login_url='signin')
 def delete_inscription(request, enrollment_id):
     obj = get_object_or_404(Inscription, pk=enrollment_id)
     obj.delete()
-    return redirect('list_inscriptions', enrollment_id)
+    return redirect('list_inscriptions', obj.fk_estudiante.dni)
 
 
+@login_required(login_url='signin')
 def delete_pay(request, num_fact_id):
     obj = get_object_or_404(Pago, pk=num_fact_id)
     obj.delete()
-    return redirect('opciones_pago', obj.fk_inscription.num_comprobante)
+    return redirect('list_pays', obj.fk_inscription.num_comprobante)
+
+# IMPRESION DE PAGOS POR MATRICULA
+
+
+@login_required(login_url='signin')
+def pay_x_inscription(request, num_fact_id):
+    obj = get_object_or_404(Pago, pk=num_fact_id)
+    wb = Workbook()
+    ws = wb.active
+
+    # Escribimos los títulos de las columnas
+    ws['B2'] = 'INSTITUTO GIORDANO BRUNO'
+    ws.merge_cells('B2:F2')
+    ws['B3'] = 'R.U.C. 443964-1-430566 D.V. 65'
+    ws.merge_cells('B3:F3')
+    ws['B4'] = 'E-Mail: institutogiordanobruno2004@gmail.com'
+    ws.merge_cells('B4:F4')
+    # ----------------------------------------------------------------
+    ws['B7'] = 'RECIBO N°:'
+    ws['C7'] = f'{obj.factura_pago}'
+    ws['E7'] = 'Fecha:'
+    ws['F7'] = f'{obj.fecha_pago}'
+    # ----------------------------------------------------------------
+    ws['B9'] = 'Hemos Recibido de:'
+    ws['D9'] = f'{obj.fk_inscription.fk_estudiante.apellido_1}, {obj.fk_inscription.fk_estudiante.nombre_1}'
+    ws['B11'] = 'La Suma de:'
+    ws['D11'] = f"{num2words(obj.monto_pagar, lang='es')} balboas."
+    ws['B13'] = 'Facturacion Por:'
+    ws['D13'] = f'{obj.cargo_tipo}'
+    ws['B15'] = 'Saldo Anterior:'
+    ws['E15'] = f'{obj.monto_valor}'
+    ws['B17'] = 'Abono'
+    ws['D17'] = f'{obj.monto_pagar}'
+    ws['B19'] = 'Saldo Actual:'
+    if (obj.monto_pagar-obj.monto_valor) > 0:
+        ws['D19'] = f'{obj.monto_pagar-obj.monto_valor}'
+    else:
+        ws['E19'] = f'{obj.monto_pagar-obj.monto_valor}'
+    ws['E21'] = 'Firma:'
+
+    # Configuramos la respuesta HTTP con el archivo Excel
+    response = HttpResponse(
+        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = f'attachment; filename=pagos-inscripcion-{obj.fk_inscription.num_comprobante}.xlsx'
+    wb.save(response)
+
+    return response
+
+
+def add_pass(request, num_pass_id):
+    obj = get_object_or_404(Pago, pk=num_pass_id)
+    obj.monto_valor = obj.monto_valor-obj.monto_pagar
+    obj.monto_pagar = 0.00
+    obj.fecha_pago = datetime.datetime.now()
+
+    sufijo_re = re.compile(r"_\d{2}$")
+
+# Buscar un sufijo en el número de factura
+    match = sufijo_re.search(f"{obj.factura_pago}")
+
+    if match:
+        # Si hay un sufijo, incrementar en 1 el número siguiente al guion bajo
+        num_sufijo = int(match.group()[1:]) + 1
+        nuevo_num_fact = obj.factura_pago[:-2] + f"{num_sufijo:02d}"
+    else:
+        # De lo contrario, agregar "_01" al final del número de factura
+        nuevo_num_fact = obj.factura_pago + "_01"
+
+# Imprimir el nuevo número de factura
+    print(nuevo_num_fact)
+    obj.factura_pago = nuevo_num_fact
+    obj_form = PagoForm(instance=obj)
+
+    if request.method == 'GET':
+        dictionary = {
+            'tittle': 'Agregar Abono',
+            'form': obj_form, }
+        return render(request, 'form_create.html', dictionary)
+    else:
+        obj_form2 = PagoForm(request.POST, instance=obj)
+        if obj_form2.is_valid():
+            obj_form2.save()
+            return redirect('list_pays', obj.fk_inscription.num_comprobante)
+        else:
+            return HttpResponse('error desconocido')
