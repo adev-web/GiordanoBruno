@@ -1,14 +1,14 @@
 <footer class="d-flex justify-content-between pt-5">
     <div class="text-center">
-        {% if tittle == 'Main' %}
-        <a href="">
+        {% if has_id == True %}
+        <a href="{% url return_url return_id %}">
             <h2>
                 <i class="bi bi-box-arrow-left"></i>
             </h2>
             <h6>Regresar</h6>
         </a>
-        {% else%}
-        <a id="btn_back" href="">
+        {% else %}
+        <a href="{% url return_url %}">
             <h2>
                 <i class="bi bi-box-arrow-left"></i>
             </h2>

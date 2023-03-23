@@ -30,8 +30,7 @@ class Estudiante(models.Model):
         blank=True,
         verbose_name='sexo',
         max_length=10,
-        choices=SEXO_CHOICES,
-        default='Opciones')
+        choices=SEXO_CHOICES,)
     fecha_nacimiento = models.DateField(
         blank=True, verbose_name='fecha de nacimiento',)
     email = models.EmailField(
@@ -56,7 +55,9 @@ class Estudiante(models.Model):
     observaciones = models.TextField(
         verbose_name='observaciones generales',
         blank=True)
-
+    def __str__(self):
+        str = "{0}, {1} ({2})"
+        return str.format(self.apellido_1, self.nombre_1, self.dni)
 
 class Inscription(models.Model):
 
@@ -95,15 +96,17 @@ class Inscription(models.Model):
         choices=TRIMESTRE_CHOICES,
         default='Opciones',
         verbose_name='trimestre',
-        max_length=30,
-    )
+        max_length=30,)
+    def __str__(self):
+        str = "{0} - {1} ({2})"
+        return str.format(self.curso, self.curso_nivel, self.trimestre)
 
 
 class Pago(models.Model):
     fk_inscription = models.ForeignKey(
         Inscription,
         blank=True,
-        verbose_name='num_comprobante',
+        verbose_name='comprobante de matricula',
         on_delete=models.CASCADE,
     )
     factura_pago = models.CharField(
@@ -127,3 +130,7 @@ class Pago(models.Model):
         max_digits=5,
         decimal_places=2,
         verbose_name='Recibido',)
+    
+    def __str__(self):
+        str = "{0}, Saldo: Bl/.{1}"
+        return str.format(self.factura_pago, self.monto_valor - self.monto_pagar,)

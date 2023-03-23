@@ -1,10 +1,8 @@
 SEXO_CHOICES = [
-    ('Opciones', 'Opciones',),
     ('Masculino', 'M',),
     ('Femenino', 'F',),
 ]
 GRUPOS_CHOICES = [
-    ('Opciones', 'Opciones',),
     ('7mo', 'Séptimo grado'),
     ('8vo', 'Octavo grado'),
     ('9no', 'Noveno grado'),
@@ -13,13 +11,12 @@ GRUPOS_CHOICES = [
     ('12mo', 'Duodecimo grado'),
 ]
 BLOQUE_CHOICES = [
-    ('Opciones', 'Opciones',),
-    ('PRIMER CICLO', 'PRIMER CICLO'),
-    ('CIENCIAS', 'CIENCIAS'),
-    ('COMERCIO', 'COMERCIO'),
-    ('HUMANIDADES', 'HUMANIDADES'),
-    ('INFORMATICA', 'INFORMATICA'),
-    ('TURISMO', 'TURISMO'),
+    ('Primer Ciclo', 'Primer Ciclo'),
+    ('Ciencias', 'Ciencias'),
+    ('Comercio', 'Comercio'),
+    ('Humanidades', 'Humanidades'),
+    ('Informática', 'Informática'),
+    ('Turismo', 'Turismo'),
 ]
 
 PROVINCIA_CHOICES = [
@@ -50,11 +47,12 @@ DISCAPACIDAD_CHOICES = [
 ]
 
 CARGO_INSCRIPTIONS_CHOICES = [
-    ('Matricula', 'Matricula'), ('Mensualidad', 'Mensualidad'), ('Diploma o Certificado', 'Diploma o Certificado'),]
+    ('Matricula', 'Matricula'),
+    ('Mensualidad', 'Mensualidad'),
+    ('Diploma o Certificado', 'Diploma o Certificado'), ]
 
 TRIMESTRE_CHOICES = [
-    ('OPCIONES', 'OPCIONES'),
-    ('PRIMER TRIMESTRE', 'I'),
-    ('SEGUNDO TRIMESTRE', 'II'),
-    ('TERCER TRIMESTRE', 'III'),
+    ('I', 'Primer Trimestre',),
+    ('II', 'Segundo Trimestre',),
+    ('III', 'Tercer Trimestre',),
 ]
