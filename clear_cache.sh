@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # exit on error
+pass_code = 'PASS_DIRS_APP'
+
 rm -r **/__pycache__/
 rm -r **/migrations/
 

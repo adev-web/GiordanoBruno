@@ -1,5 +1,6 @@
+{% if user.is_authenticated %}
 <nav class="d-flex justify-content-between">
-    {% if user.is_authenticated %}
+
     <ul class="nav nav-pills justify-content-sm-center align-items-center">
         <li class="nav-item">
             <a class="nav-link" href="#">Bienvenid@ {{user.username}}</a>
@@ -11,17 +12,22 @@
             <a class="nav-link" href="{% url 'main' %}">Inicio</a>
         </li>
         {% endif %}
+    </ul>
 
-        {% else %}
+</nav>
+
+{% else %}
+<nav class="d-flex justify-content-end">
+
+    <ul class="nav nav-pills justify-content-sm-center align-items-center">
         <li class="nav-item">
             <a class="nav-link" href="{% url 'signin' %}">Iniciar Sesión</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{% url 'signup' %}">Registrarse</a>
         </li>
-
     </ul>
 
 
-    {% endif %}
 </nav>
+{% endif %}

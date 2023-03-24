@@ -46,8 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',
     'secure',
-    'phone_field',
-
 ]
 
 MIDDLEWARE = [
@@ -90,9 +88,8 @@ DATABASES = {}
 if not DEBUG:
     DATABASES = {
         'default': dj_database_url.config(
-            # Feel free to alter this value to suit your needs.
-            default='postgresql://postgres:38pzPXF1Mevzaue0H8Wz@containers-us-west-71.railway.app:6105/railway',
-            conn_max_age=500)}
+            default='',
+            conn_max_age=600)}
 else:
     DATABASES = {
         'default': {
