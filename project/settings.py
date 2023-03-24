@@ -88,7 +88,7 @@ DATABASES = {}
 if not DEBUG:
     DATABASES = {
         'default': dj_database_url.config(
-            default='',
+            default='postgres://giordanobruno_free_user:uXyvej5QpqzDmlCtMNTrum3xCGBZbJea@dpg-cgeurnpmbg568r4fris0-a.ohio-postgres.render.com/giordanobruno_free',
             conn_max_age=600)}
 else:
     DATABASES = {
