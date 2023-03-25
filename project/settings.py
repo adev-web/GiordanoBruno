@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import socket
 from pathlib import Path
 import dj_database_url
 import os
@@ -26,9 +27,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'RENDER' not in os.environ
-#DEBUG = False
+# DEBUG = False
 
-import socket
 
 # Obtener el nombre del host
 hostname = socket.gethostname()
@@ -92,21 +92,13 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {}
 
-if not DEBUG:
-    DATABASES = {
-        'default': dj_database_url.config(
-            default='postgresql://postgres:FbtIge1J5B0gcZXZBpHW@containers-us-west-52.railway.app:6090/railway',
-            conn_max_age=600),
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
 
 
 # Password validation
