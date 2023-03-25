@@ -210,7 +210,7 @@ def list_pays(request, enrollment_id):
 
     # FILTER_SQL
     if request.method == 'GET':
-        consulta = f"select factura_pago, cargo_tipo, ROUND(monto_valor, 2), ROUND(monto_pagar, 2), case when monto_valor-monto_pagar > 0 then -(round(monto_valor-monto_pagar,2)) else round(monto_valor-monto_pagar,2) end as 'SALDO', fecha_pago from app_pago inner join app_inscription on fk_inscription_id = num_comprobante and num_comprobante = '{enrollment_id}' order by cargo_tipo desc, factura_pago desc;"
+        consulta = f"select factura_pago, cargo_tipo, ROUND(monto_valor, 2), ROUND(monto_pagar, 2), case when monto_valor-monto_pagar > 0 then -(round(monto_valor-monto_pagar,2)) else round(monto_valor-monto_pagar,2) end as SALDO, fecha_pago from app_pago inner join app_inscription on fk_inscription_id = num_comprobante and num_comprobante = '{enrollment_id}' order by cargo_tipo desc, factura_pago desc;"
 
     else:
         consulta = f"select factura_pago, cargo_tipo, monto_valor, monto_pagar, case when monto_valor-monto_pagar > 0 then -(round(monto_valor-monto_pagar,2)) else round(monto_valor-monto_pagar,2) end as saldo, fecha_pago from app_pago inner join app_inscription on fk_inscription_id = num_comprobante and num_comprobante = '{enrollment_id}' where factura_pago like '%{request.POST.get('search_filter')}%' order by cargo_tipo desc, factura_pago desc;"

@@ -25,10 +25,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
+# DEBUG = 'RENDER' not in os.environ
+DEBUG = False
+
+import socket
+
+# Obtener el nombre del host
+hostname = socket.gethostname()
+# Obtener la dirección IP local
+ip_address = socket.gethostbyname(hostname)
+
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', f'{ip_address}',]
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
@@ -88,8 +97,9 @@ DATABASES = {}
 if not DEBUG:
     DATABASES = {
         'default': dj_database_url.config(
-            default='postgres://giordanobruno_free_user:uXyvej5QpqzDmlCtMNTrum3xCGBZbJea@dpg-cgeurnpmbg568r4fris0-a.ohio-postgres.render.com/giordanobruno_free',
-            conn_max_age=600)}
+            default='postgresql://postgres:FbtIge1J5B0gcZXZBpHW@containers-us-west-52.railway.app:6090/railway',
+            conn_max_age=600),
+    }
 else:
     DATABASES = {
         'default': {
@@ -139,7 +149,7 @@ LOGIN_URL = '/signin'
 if not DEBUG:    # Tell Django to copy statics to the `staticfiles` directory
     # in your application directory on Render.
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    #STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
+    # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
     # Turn on WhiteNoise storage backend that takes care of compressing static files
     # and creating unique names for each version so they can safely be cached forever.
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
