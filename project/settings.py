@@ -37,7 +37,7 @@ ip_address = socket.gethostbyname(hostname)
 
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', f'{ip_address}',]
+ALLOWED_HOSTS = [f'{ip_address}', ]
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
