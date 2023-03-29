@@ -6,7 +6,7 @@
         <div class="row row-cols-2">
             {% for item in form %}
             <div>
-                <h4 >{{item.label}}</h4>
+                <h4>{{item.label}}</h4>
                 {{item}}
             </div>
             {% endfor %}
@@ -20,5 +20,12 @@
         <p>{{error}}</p>
     </div>
 </main>
+<script>
+    const btn_back = document.getElementById("btn_back");
+    btn_back.addEventListener("click", function () {
+        window.history.back();
+        window.location.reload();
 
+    });
+</script>
 {% endblock %}

@@ -16,6 +16,7 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+print(BASE_DIR)
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
+DEBUG = True
 #DEBUG = False
 
 import socket
@@ -97,7 +98,7 @@ DATABASES = {}
 if not DEBUG:
     DATABASES = {
         'default': dj_database_url.config(
-            default='postgresql://postgres:FbtIge1J5B0gcZXZBpHW@containers-us-west-52.railway.app:6090/railway',
+            default='postgresql://postgres:tkMHnX1c7SqUs5a1TXqA@containers-us-west-53.railway.app:6990/railway',
             conn_max_age=600),
     }
 else:
@@ -142,7 +143,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, STATIC_URL),
 ]
 LOGIN_URL = '/signin'
 # Following settings only make sense on production and may break development environments.

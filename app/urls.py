@@ -26,5 +26,11 @@ urlpatterns = [
     path('delete/pago/id/<str:num_fact_id>/', views.delete_pay, name='delete_pay'),
 
     path('imprimir/recibo/id/<str:num_fact_id>/', views.print_fact, name='print_fact'),
-    path('imprimir/pagos/inscripcion/id/<str:num_fact_id>/', views.print_pays, name='print_pays')
+    path('imprimir/pagos/inscripcion/id/<str:num_fact_id>/', views.print_pays, name='print_pays'),
+
+    ## genera las vistas para las dos funciones que recien cree
+    #path('import/data', views.import_data, name='import_data'),
+    #path('export/data', views.export_data, name='export_data'),
+
+
 ]

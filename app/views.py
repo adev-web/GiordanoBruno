@@ -17,9 +17,11 @@ from num2words import num2words
 import re
 # Create your views here.
 
-
+from pathlib import Path
 @login_required(login_url='signin')
 def main(request):
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    print(BASE_DIR)
     dictionary = {
         'tittle': 'Main',
         'return_url': 'main',
