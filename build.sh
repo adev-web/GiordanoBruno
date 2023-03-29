@@ -1,19 +1,11 @@
-#!/usr/bin/env bash
-# exit on error
-pass_code = 'PASS_DIRS_APP'
 
-rm -r **/__pycache__/
-rm -r **/migrations/
-
-mkdir app/migrations/
-touch app/migrations/__init__.py
-
-mkdir secure/migrations/
-touch secure/migrations/__init__.py
+sh clear_cache.sh
 
 pip install -r requirements.txt
 
 python manage.py migrate
-python manage.py collectstatic --no-input
+python manage.py makemigrations
+python manage.py migrate
+python manage.py collectstatic --noinput
 
-bash user.sh
+sh user.sh

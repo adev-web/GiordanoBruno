@@ -1,12 +1,11 @@
-#!/usr/bin/env bash
-# exit on error
-pass_code = 'PASS_DIRS_APP'
+#!/bin/bash
+rm -rf */*/__pycache__
+rm -rf */*/migrations/__pycache__
+rm -rf */*/migrations/*.pyc
+rm -rf */*/migrations/*/*.pyc
+rm -rf */*/static_cache/*
+rm -rf */*/.webassets-cache/*
+rm -rf */*/.sass-cache/*
+rm -rf */*/.cache/*
 
-rm -r **/__pycache__/
-rm -r **/migrations/
-
-mkdir app/migrations/
-touch app/migrations/__init__.py
-
-mkdir secure/migrations/
-touch secure/migrations/__init__.py
+rm -rf './staticfiles/'
