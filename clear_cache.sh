@@ -1,11 +1,13 @@
 #!/bin/bash
-rm -rf */*/__pycache__
-rm -rf */*/migrations/__pycache__
-rm -rf */*/migrations/*.pyc
-rm -rf */*/migrations/*/*.pyc
-rm -rf */*/static_cache/*
-rm -rf */*/.webassets-cache/*
-rm -rf */*/.sass-cache/*
-rm -rf */*/.cache/*
+rm -rf project/__pycache__
 
-rm -rf './staticfiles/'
+
+data=("app" "secure")
+for i in "${data[@]}"
+do
+rm -rf ${i}/__pycache__
+rm -rf ${i}/migrations/__pycache__
+
+#touch ${i}/migrations/__init__.py
+
+done

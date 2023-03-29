@@ -94,6 +94,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {}
 
+"""
 if not DEBUG:
     DATABASES = {
         'default': dj_database_url.config(
@@ -107,7 +108,14 @@ else:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+"""
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 # Password validation
