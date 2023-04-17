@@ -10,10 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+
+import os
 import socket
 from pathlib import Path
 import dj_database_url
-import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -53,8 +55,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app',
     'secure',
+    'app',
+
 ]
 
 MIDDLEWARE = [
@@ -92,19 +95,19 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.config(
-        # Feel free to alter this value to suit your needs.
-        default='postgres://giordanobruno_user:HoIXY5oWfiMXycL27I8L6d8PdiqJccLZ@dpg-cgr1kot269v4iovbha4g-a.ohio-postgres.render.com/giordanobruno',
-        conn_max_age=500)}
-""""
+if not DEBUG:
+    DATABASES = {
+        'default': dj_database_url.config(
+            default='postgres://giordanobruno_user:HoIXY5oWfiMXycL27I8L6d8PdiqJccLZ@dpg-cgr1kot269v4iovbha4g-a.ohio-postgres.render.com/giordanobruno',
+            conn_max_age=600),
+    }
+else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-"""
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
