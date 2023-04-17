@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'RENDER' not in os.environ
-
+# DEBUG = False
 
 # Obtener el nombre del host
 hostname = socket.gethostname()
@@ -37,7 +37,7 @@ ip_address = socket.gethostbyname(hostname)
 
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', f'{ip_address}',]
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', f'{ip_address}', '*',]
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
@@ -92,16 +92,12 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {}
-
-"""
-if not DEBUG:
-    DATABASES = {
-        'default': dj_database_url.config(
-            default='postgresql://postgres:tkMHnX1c7SqUs5a1TXqA@containers-us-west-53.railway.app:6990/railway',
-            conn_max_age=600),
-    }
-else:
+DATABASES = {
+    'default': dj_database_url.config(
+        # Feel free to alter this value to suit your needs.
+        default='postgres://giordanobruno_user:HoIXY5oWfiMXycL27I8L6d8PdiqJccLZ@dpg-cgr1kot269v4iovbha4g-a.ohio-postgres.render.com/giordanobruno',
+        conn_max_age=500)}
+""""
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -109,14 +105,6 @@ else:
         }
     }
 """
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
