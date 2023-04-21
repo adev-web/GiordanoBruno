@@ -1,1 +1,1 @@
-echo "from django.contrib.auth.models import User; User.objects.filter(email='admin_root').delete(); User.objects.create_superuser('admin_root', 'vargas.alessandro12@gmail.com', 'root_admin')" | python manage.py shell
+echo "from django.contrib.auth.models import User; User.objects.filter(username='admin_root').delete(); User.objects.create_superuser('admin_root', 'vargas.alessandro12@gmail.com', 'root_admin')" | python manage.py shell
